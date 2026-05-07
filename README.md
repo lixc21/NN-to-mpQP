@@ -111,3 +111,8 @@ random seeds:
 ```powershell
 python test_random.py
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
+
