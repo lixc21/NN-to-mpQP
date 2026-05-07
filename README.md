@@ -39,7 +39,7 @@ python quick_start.py
 ## Example: a 2D ReLU network and its mpQP
 
 `example_2d.py` builds a small ReLU network with input dimension $2$, two
-hidden layers of width $6$, and a scalar output (`seed=7`):
+hidden layers of width $6$, and a scalar output:
 
 ```
 W1 (6x2) =
@@ -109,7 +109,5 @@ $$
 random seeds:
 
 ```powershell
-pytest test_random.py -q
-# or
 python test_random.py
 ```
