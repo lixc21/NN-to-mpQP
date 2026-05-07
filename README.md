@@ -14,8 +14,8 @@ with bounded input $\lVert x \rVert_\infty \le B_0$, the package builds the mpQP
 
 $$
 \begin{aligned}
-\min_{z_1,\dots,z_L}\;& \sum_{l=1}^{L} \tfrac{1}{2} \lVert z_l + M_l \mathbf{1} \rVert^2 \\
-\text{s.t.}\;& z_l \ge 0, & l &= 1,\dots,L, \\
+\min_{z_1,\dots,z_L}\quad & \sum_{l=1}^{L} \tfrac{1}{2} \lVert z_l + M_l \mathbf{1} \rVert^2 \\
+\text{s.t.}\quad & z_l \ge 0, & l &= 1,\dots,L, \\
 & z_l \ge W_l z_{l-1} + b_l, & l &= 1,\dots,L, \quad (z_0 := x)
 \end{aligned}
 $$
@@ -70,26 +70,35 @@ With $B_0 = 1$, the resulting mpQP has
 - parameter dimension $n_x = 2$,
 - decision dimension $n_z = 12$ (two hidden layers of $6$),
 - $n_c = 24$ linear inequality constraints,
-- layer constants $M = (7.377,\, 1.000)$.
+- layer constants $M = (7.377,\ 1.000)$.
 
 In standard form
 
 $$
-\min_{z}\; \tfrac{1}{2} z^\top Q z + c^\top z
+\min_{z}\ \tfrac{1}{2} z^\top Q z + c^\top z
 \quad \text{s.t.} \quad A z \le b + S x,
 $$
 
-with $Q = I_{12}$, $c = [M_1 \mathbf{1}_6;\, M_2 \mathbf{1}_6]$, and
-$(A, b, S)$ encoding the two per-layer blocks $z_l \ge 0$ and
+where
+
+$$
+Q = I_{12}, \qquad c = \begin{bmatrix} M_1 \mathbf{1}_6 \\ M_2 \mathbf{1}_6 \end{bmatrix},
+$$
+
+and $(A, b, S)$ encode the two per-layer blocks $z_l \ge 0$ and
 $z_l \ge W_l z_{l-1} + b_l$. The final linear layer $(W_3, b_3)$ is applied
-outside the mpQP: $F(x) = W_3\, z_L^\star(x) + b_3$.
+outside the mpQP:
+
+$$
+F(x) = W_3\, z_L^\star(x) + b_3.
+$$
 
 Comparing the network's forward pass against the mpQP optimum on a $41\times41$
 grid of $[-1, 1]^2$:
 
 $$
 \max_{x} \bigl| F_{\mathrm{nn}}(x) - \bigl(W_3 z_L^\star(x) + b_3\bigr) \bigr|
-\;=\; 7.49 \times 10^{-16}.
+\ =\ 7.49 \times 10^{-16}.
 $$
 
 ![NN vs mpQP, 2D example](example_2d.png)

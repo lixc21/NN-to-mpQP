@@ -22,11 +22,6 @@ htmlcov/
 .vscode/
 .idea/
 
-# Generated outputs
-figures/
-*.png
-*.pdf
-
 # OS
 .DS_Store
 Thumbs.db
